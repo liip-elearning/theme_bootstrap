@@ -229,7 +229,6 @@ class theme_bootstrap_core_renderer extends core_renderer {
         } else {
             $content = '<li>';
             // The node doesn't have children so produce a final menuitem.
-            $class = $menunode->get_title();
             if (preg_match("/^#+$/", $menunode->get_text())) {
                 $content = '<li class="divider" role="presentation">';
             } else {
@@ -240,7 +239,7 @@ class theme_bootstrap_core_renderer extends core_renderer {
                 } else {
                     $url = '#';
                 }
-                $content .= html_writer::link($url, $menunode->get_text(), array('class' => $class,
+                $content .= html_writer::link($url, $menunode->get_text(), array(
                     'title' => $menunode->get_title()));
             }
         }
@@ -252,7 +251,7 @@ class theme_bootstrap_core_renderer extends core_renderer {
      *
      * @return string The lang menu HTML or empty string
      */
-    protected function add_lang_menu(custom_menu $menu, $force = false) {
+    protected function add_lang_menu(custom_menu $menu, $force = false, $short = false) {
         // TODO: eliminate this duplicated logic, it belongs in core, not
         // here. See MDL-39565.
 
@@ -262,14 +261,15 @@ class theme_bootstrap_core_renderer extends core_renderer {
             $langs = get_string_manager()->get_list_of_translations();
             $strlang = get_string('language');
             $currentlang = current_language();
+            $title = $short ? $currentlang : $strlang;
             if (isset($langs[$currentlang])) {
                 $currentlang = $langs[$currentlang];
             } else {
                 $currentlang = $strlang;
             }
-            $this->language = $menu->add($currentlang, new moodle_url('#'), $strlang, 10000);
+            $this->language = $menu->add($title, new moodle_url('#'), $currentlang, 10000);
             foreach ($langs as $langtype => $langname) {
-                $this->language->add($langname, new moodle_url($this->page->url, array('lang' => $langtype)), $langname);
+                $this->language->add($short ? $langtype : $langname, new moodle_url($this->page->url, array('lang' => $langtype)), $langname);
             }
         }
     }
