@@ -418,7 +418,9 @@ table {
   border-spacing: 0;
 }
 
-td,
-th {
-  padding: 0;
+table:not([cellpadding]) {
+  td,
+  th {
+    padding: 0;
+  }
 }
