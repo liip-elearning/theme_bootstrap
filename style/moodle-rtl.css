@@ -227,11 +227,6 @@ table {
   border-spacing: 0;
 }
 
-td,
-th {
-  padding: 0;
-}
-
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
 
 @media print {
@@ -17982,6 +17977,13 @@ textarea.mform .fitem .felement textarea {
 
 .mform .iconhelp {
   margin-right: 4px;
+}
+
+.mform .fcheckbox > span,
+.mform .fradio > span,
+.mform .fgroup > span {
+  display: inline-block;
+  margin-top: 5px;
 }
 
 .form-item .form-label {
